@@ -1,34 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { EventsService } from './events.service';
+import { Event } from './event.entity';
 
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Get()
-  findAll(): Event[] {
-    return [
-      {
-        name: 'JUG Vale 2024 - Adyen',
-        capacityLimit: 60,
-        price: 100,
-      },
-      {
-        name: 'ADA :: Javascript cod3rs',
-        capacityLimit: 100,
-        price: 0,
-      },
-      {
-        name: 'GoLang users',
-        capacityLimit: 30,
-        price: 20.99,
-      },
-    ];
+  async findAll(): Promise<Event[]> {
+    return this.eventsService.findAll();
   }
-}
-
-interface Event {
-  name: string;
-  capacityLimit: number;
-  price: number;
 }
